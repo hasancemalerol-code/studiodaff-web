@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   },
 
   verification: {
-    google: "bEoH5CnDPdFO1anArTznwddiEwWE1zjxNvJnid10yrA",
+    google: "CWV-ppm_49y0JFlz2A95bT9JN8cFugzZGFWj5fdhjus",
   },
 
   openGraph: {
@@ -172,7 +172,6 @@ export default function RootLayout({
 
       <body className={poppins.className}>
         {children}
-
         <GoogleAnalytics gaId="G-LHFP4GDV01" />
       </body>
     </html>
