@@ -1,0 +1,227 @@
+.services {
+    padding: 120px 8%;
+    background: linear-gradient(
+        180deg,
+        #0c0c0c 0%,
+        #121212 50%,
+        #0e0e0e 100%
+    );
+    color: #fff;
+}
+
+.services-title {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.services-title span {
+    color: #d4af37;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.services-title h2 {
+    margin-top: 18px;
+    font-size: 56px;
+    line-height: 1.2;
+    text-shadow: 0 0 30px rgba(212,175,55,.15);
+}
+
+/* GRID */
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 40px;
+}
+
+/* CARD */
+
+.service-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 28px;
+
+    background: rgba(255,255,255,.05);
+
+    backdrop-filter: blur(16px);
+
+    border: 1px solid rgba(212,175,55,.18);
+
+    transition: all .45s ease;
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.30);
+
+}
+
+/* GOLD BAR */
+
+.service-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: #d4af37;
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition: .45s;
+
+}
+
+/* PAW */
+
+.service-card::after {
+
+    content: "🐾";
+
+    position: absolute;
+
+    right: -10px;
+    bottom: -20px;
+
+    font-size: 120px;
+
+    opacity: .04;
+
+    pointer-events: none;
+
+}
+
+/* HOVER */
+
+.service-card:hover {
+
+    transform:
+        translateY(-15px);
+
+    border-color: #d4af37;
+
+    box-shadow:
+        0 30px 60px rgba(212,175,55,.18);
+
+}
+
+.service-card:hover::before {
+
+    transform: scaleX(1);
+
+}
+
+/* IMAGE */
+
+.service-card img {
+
+    width: 100%;
+    height: 330px;
+
+    object-fit: cover;
+
+    transition: .6s ease;
+
+}
+
+.service-card:hover img {
+
+    transform: scale(1.08);
+
+}
+
+/* CONTENT */
+
+.service-content {
+
+    padding: 30px;
+
+}
+
+.service-content h3 {
+
+    font-size: 30px;
+
+    margin-bottom: 18px;
+
+    font-weight: 700;
+
+}
+
+.service-content p {
+
+    color: #cfcfcf;
+
+    line-height: 1.9;
+
+    margin-bottom: 28px;
+
+}
+
+/* BUTTON */
+
+.service-content button {
+
+    background: #d4af37;
+
+    color: #111;
+
+    border: none;
+
+    padding: 15px 32px;
+
+    border-radius: 50px;
+
+    cursor: pointer;
+
+    font-weight: 700;
+
+    transition: .35s ease;
+
+}
+
+.service-content button:hover {
+
+    transform: translateY(-4px);
+
+    background: #e7bf48;
+
+    box-shadow:
+        0 12px 30px rgba(212,175,55,.35);
+
+}
+
+/* RESPONSIVE */
+
+@media (max-width:992px){
+
+.services-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.services-title h2{
+
+font-size:40px;
+
+}
+
+.service-card img{
+
+height:280px;
+
+}
+
+}
