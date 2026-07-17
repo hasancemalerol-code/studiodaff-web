@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -34,14 +34,8 @@ export const metadata: Metadata = {
     "Premium Pet Grooming",
   ],
 
-  authors: [
-    {
-      name: "Studio Daff",
-    },
-  ],
-
+  authors: [{ name: "Studio Daff" }],
   creator: "Studio Daff",
-
   publisher: "Studio Daff",
 
   robots: {
@@ -110,19 +104,12 @@ export const metadata: Metadata = {
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "PetStore",
-
   name: "Studio Daff",
-
   image: "https://www.studiodaff.com/logo.png",
-
   url: "https://www.studiodaff.com",
-
   telephone: "+90 530 734 74 62",
-
   email: "info@studiodaff.com",
-
   priceRange: "₺₺",
-
   address: {
     "@type": "PostalAddress",
     streetAddress: "Etiler Mahallesi",
@@ -131,7 +118,6 @@ const localBusinessSchema = {
     postalCode: "34337",
     addressCountry: "TR",
   },
-
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
@@ -148,17 +134,14 @@ const localBusinessSchema = {
       closes: "19:00",
     },
   ],
-
-  sameAs: [
-    "https://www.instagram.com/studio_daff/",
-  ],
+  sameAs: ["https://www.instagram.com/studio_daff/"],
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="tr">
       <head>
@@ -171,8 +154,9 @@ export default function RootLayout({
       </head>
 
       <body className={poppins.className}>
+        <GoogleTagManager gtmId="GTM-T7664RC4" />
+
         {children}
-        <GoogleAnalytics gaId="G-LHFP4GDV01" />
       </body>
     </html>
   );
