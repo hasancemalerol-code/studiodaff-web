@@ -3,7 +3,7 @@
 import "./WhatsAppButton.css";
 
 export default function WhatsAppButton() {
-  const phone = "905551234567"; // <-- Kendi numaranı yaz
+  const phone = "905307347462"; // <-- Kendi numaranı yaz
   const message =
     "Merhaba, StudioDaff hakkında bilgi almak istiyorum.";
 
