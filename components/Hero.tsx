@@ -36,6 +36,13 @@ export default function Hero() {
             </a>
 
             <a
+              href="tel:+905307347462"
+              className="btn-call"
+            >
+              📞 Ara
+            </a>
+
+            <a
               href="#services"
               className="btn-outline"
             >
