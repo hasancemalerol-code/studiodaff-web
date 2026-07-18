@@ -31,7 +31,7 @@ export default function Contact() {
           <div className="map-box">
 
             <iframe
-              src="https://www.google.com/maps?q=STUDIO%20DAFF%20PET%20GROOMING%20(J%C4%B0J%C4%B0%20PET),%20Rumeli%20Hisar%C4%B1,%20Sayg%C4%B1l%C4%B1%20Sk.%20No:5%20D:A,%2034470%20Sar%C4%B1yer%20%C4%B0stanbul&output=embed"
+              src="https://www.google.com/maps?q=STUDIO%20DAFF%20PET%20GROOMING%20(JIJI%20PET),%20Etiler,%20Sayg%C4%B1l%C4%B1%20Sk.%20No:5%20D:A,%20%C4%B0stanbul&output=embed"
               width="100%"
               height="100%"
               loading="lazy"
@@ -48,11 +48,11 @@ export default function Contact() {
               <h3>📍 Adres</h3>
 
               <p>
-                Rumeli Hisarı
+                Etiler
                 <br />
                 Saygılı Sokak No:5 D:A
                 <br />
-                Sarıyer / İstanbul
+                İstanbul
               </p>
 
             </div>
@@ -61,8 +61,8 @@ export default function Contact() {
 
               <h3>📞 Telefon</h3>
 
-              <a href="tel:+902128926832">
-                +90 212 892 68 32
+              <a href="tel:+905307347462">
+                +90 530 734 74 62
               </a>
 
             </div>
@@ -118,13 +118,9 @@ export default function Contact() {
               </option>
 
               <option>Köpek Grooming</option>
-
               <option>Kedi Grooming</option>
-
               <option>Banyo & Spa</option>
-
               <option>Tırnak Kesimi</option>
-
               <option>Kulak Temizliği</option>
 
             </select>
