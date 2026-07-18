@@ -113,22 +113,45 @@ export default function DaffyAI() {
     return "🦡 Bana dostunuzun ırkını, yaşını veya bakım ihtiyacını yazabilirsiniz.";
   };
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+const handleSend = async () => {
+  if (!input.trim()) return;
 
-    const userText = input.trim();
+  const userText = input.trim();
 
-    addMessage("user", userText);
+  addMessage("user", userText);
+  setInput("");
+  setTyping(true);
 
-    setInput("");
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message: userText,
+      }),
+    });
 
-    setTyping(true);
+    const data = await res.json();
 
-    setTimeout(() => {
-      setTyping(false);
-      addMessage("daffy", createReply(userText));
-    }, 700);
-  };
+    setTyping(false);
+
+    addMessage(
+      "daffy",
+      data.reply || "Şu anda cevap veremiyorum."
+    );
+  } catch (error) {
+    setTyping(false);
+
+    addMessage(
+      "daffy",
+      "⚠️ Şu anda AI servisine ulaşılamıyor."
+    );
+
+    console.error(error);
+  }
+};
 
   const quickAction = (type: string) => {
     switch (type) {
@@ -203,10 +226,12 @@ export default function DaffyAI() {
           ))}
 
           {typing && (
-            <div className="message daffy">
-              Daffy yazıyor...
-            </div>
-          )}
+  <div className="message daffy typing">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+)}
         </div>
 
         <div className="quick-grid">
