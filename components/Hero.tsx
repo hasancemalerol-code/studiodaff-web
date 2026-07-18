@@ -1,5 +1,6 @@
 "use client";
 
+import DaffyAI from "./DaffyAI/DaffyAI";
 import "./Hero.css";
 import { motion } from "framer-motion";
 
@@ -88,12 +89,9 @@ export default function Hero() {
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
         >
-
-          <img
-            src="/images/hero.jpg"
-            alt="StudioDaff Premium Pet Grooming"
-          />
-
+        <DaffyAI />
+          
+        
         </motion.div>
 
       </div>

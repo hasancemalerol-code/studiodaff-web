@@ -1,132 +1,274 @@
 "use client";
 
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import "./DaffyAI.css";
 
+type Sender = "daffy" | "user";
+
+interface Message {
+  id: number;
+  sender: Sender;
+  text: string;
+}
+
+const BREEDS: Record<string, string> = {
+  pomeranian:
+    "✨ Pomeranian yoğun tarama gerektirir. Ortalama 3-4 haftada bir profesyonel bakım öneriyoruz.",
+  golden:
+    "🦮 Golden Retriever düzenli tarama ve Premium Spa bakımından büyük fayda görür.",
+  maltese:
+    "🤍 Maltese için göz çevresi temizliği ve düzenli kesim oldukça önemlidir.",
+  poodle:
+    "✂️ Poodle kıvırcık tüy yapısı nedeniyle düzenli profesyonel kesime ihtiyaç duyar.",
+  chow:
+    "🐻 Chow Chow çift katmanlı tüy yapısına sahiptir. Düzenli tarama şarttır.",
+  british:
+    "🐱 British Shorthair düzenli tarama ve tırnak bakımından fayda görür.",
+  scottish:
+    "🐱 Scottish Fold kulak temizliğinde ekstra özen ister.",
+};
+
 export default function DaffyAI() {
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: 1,
+      sender: "daffy",
+      text: "🦡 Merhaba, ben Daffy!",
+    },
+    {
+      id: 2,
+      sender: "daffy",
+      text: "StudioDaff'ın yapay zekâ destekli pet grooming danışmanıyım.",
+    },
+    {
+      id: 3,
+      sender: "daffy",
+      text: "🐶 Dostunuz köpek mi yoksa 🐱 kedi mi?",
+    },
+  ]);
+
+  const [input, setInput] = useState("");
+  const [typing, setTyping] = useState(false);
+
+  const chatRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    chatRef.current?.scrollTo({
+      top: chatRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [messages, typing]);
+
+  const breedKeys = useMemo(() => Object.keys(BREEDS), []);
+
+  const addMessage = (sender: Sender, text: string) => {
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: Date.now() + Math.random(),
+        sender,
+        text,
+      },
+    ]);
+  };
+
+  const createReply = (value: string) => {
+    const text = value.toLowerCase().trim();
+
+    if (!text)
+      return "🦡 Size yardımcı olabilmem için bir mesaj yazabilirsiniz.";
+
+    if (text.includes("köpek"))
+      return "🐶 Harika! Köpeğinizin ırkı nedir?";
+
+    if (text.includes("kedi"))
+      return "🐱 Çok güzel! Kedinizin ırkı nedir?";
+
+    if (
+      text.includes("fiyat") ||
+      text.includes("ücret") ||
+      text.includes("kaç tl")
+    ) {
+      return "💛 Fiyatlarımız dostunuzun ırkına, boyutuna ve tüy durumuna göre değişmektedir.";
+    }
+
+    if (
+      text.includes("randevu") ||
+      text.includes("whatsapp")
+    ) {
+      return "📲 Randevu oluşturmak için aşağıdaki WhatsApp butonunu kullanabilirsiniz.";
+    }
+
+    for (const breed of breedKeys) {
+      if (text.includes(breed)) {
+        return BREEDS[breed];
+      }
+    }
+
+    if (text.includes("teşekkür")) {
+      return "😊 Rica ederim. Başka bir konuda yardımcı olmaktan mutluluk duyarım.";
+    }
+
+    return "🦡 Bana dostunuzun ırkını, yaşını veya bakım ihtiyacını yazabilirsiniz.";
+  };
+
+  const handleSend = () => {
+    if (!input.trim()) return;
+
+    const userText = input.trim();
+
+    addMessage("user", userText);
+
+    setInput("");
+
+    setTyping(true);
+
+    setTimeout(() => {
+      setTyping(false);
+      addMessage("daffy", createReply(userText));
+    }, 700);
+  };
+
+  const quickAction = (type: string) => {
+    switch (type) {
+      case "dog":
+        addMessage("daffy", "🐶 Köpeğinizin ırkı nedir?");
+        break;
+
+      case "cat":
+        addMessage("daffy", "🐱 Kedinizin ırkı nedir?");
+        break;
+
+      case "services":
+        addMessage(
+          "daffy",
+          "✂️ Premium Spa • Irka Özel Kesim • Banyo • Tırnak • Kulak • Hijyen Bakımı"
+        );
+        break;
+
+      case "booking":
+        addMessage(
+          "daffy",
+          "📅 Randevu almak için WhatsApp üzerinden bize ulaşabilirsiniz."
+        );
+        break;
+    }
+  };
 
   return (
-
     <div className="daffy-ai">
 
-      {/* Glow */}
-
-      <div className="daffy-glow"></div>
-
-      {/* Character */}
+      <div className="daffy-glow" />
 
       <motion.img
-        src="/images/daffy.png"
+        src="/daffy.png"
         alt="Daffy"
         className="daffy-avatar"
         animate={{
-          y:[0,-8,0],
-          scale:[1,1.02,1]
+          y: [0, -8, 0],
+          scale: [1, 1.03, 1],
         }}
         transition={{
-          repeat:Infinity,
-          duration:5,
-          ease:"easeInOut"
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
         }}
       />
 
-      {/* Chat Card */}
-
       <motion.div
-
         className="ai-card"
-
-        initial={{
-          opacity:0,
-          y:30
-        }}
-
-        animate={{
-          opacity:1,
-          y:0
-        }}
-
-        transition={{
-          delay:.3
-        }}
-
+        initial={{ opacity: 0, y: 35 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
       >
 
         <span className="ai-badge">
-
           🟢 ONLINE
-
         </span>
 
-        <h2>
+        <h2>Merhaba 👋</h2>
 
-          Merhaba 👋
+        <div
+          className="chat-area"
+          ref={chatRef}
+        >
+          {messages.map((msg) => (
+            <div
+              key={msg.id}
+              className={`message ${msg.sender}`}
+            >
+              {msg.text}
+            </div>
+          ))}
 
-        </h2>
-
-        <p>
-
-          Ben <strong>Daffy</strong>.
-
-          <br/><br/>
-
-          StudioDaff'ın yapay zekâ destekli
-          pet bakım danışmanıyım.
-
-          <br/><br/>
-
-          Sana bakım önerileri verebilir,
-          doğru hizmeti bulmana yardımcı olabilir
-          ve birkaç adımda randevu oluşturabilirim.
-
-        </p>
+          {typing && (
+            <div className="message daffy">
+              Daffy yazıyor...
+            </div>
+          )}
+        </div>
 
         <div className="quick-grid">
 
-          <button>
-
+          <button onClick={() => quickAction("dog")}>
             🐶
-
-            Köpek Bakımı
-
+            <span>Köpek</span>
           </button>
 
-          <button>
-
+          <button onClick={() => quickAction("cat")}>
             🐱
-
-            Kedi Bakımı
-
+            <span>Kedi</span>
           </button>
 
-          <button>
-
+          <button onClick={() => quickAction("services")}>
             ✂️
-
-            Hizmetler
-
+            <span>Hizmetler</span>
           </button>
 
-          <button>
-
+          <button onClick={() => quickAction("booking")}>
             📅
+            <span>Randevu</span>
+          </button>
+        </div>
+                <div className="chat-input">
 
-            Randevu
+          <input
+            type="text"
+            placeholder="Dostunuz hakkında yazın..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSend();
+              }
+            }}
+          />
 
+          <button
+            onClick={handleSend}
+            aria-label="Mesaj Gönder"
+          >
+            ➜
           </button>
 
         </div>
 
-        <button className="start-chat">
+        <div className="ai-footer">
 
-          Daffy ile Konuş
+          <div className="status">
+            <span className="status-dot"></span>
+            <span>Daffy hazır</span>
+          </div>
 
-        </button>
+          <div className="footer-text">
+            StudioDaff AI Pet Grooming Consultant
+          </div>
+
+        </div>
 
       </motion.div>
 
     </div>
-
   );
-
 }
