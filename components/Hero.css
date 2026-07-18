@@ -375,19 +375,30 @@ display:none;
   );
   transform:skewX(-25deg);
 }
+.btn-call{
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-.btn-call:hover::before{
-  left:150%;
-  transition:.8s;
+  width:100%;
+  min-height:64px;
+
+  background:#D4AF37;
+  color:#111;
+
+  border:none;
+  border-radius:16px;
+
+  font-size:18px;
+  font-weight:700;
+  text-decoration:none;
+
+  box-shadow:0 10px 30px rgba(212,175,55,.35);
+
+  transition:.3s ease;
 }
 
 .btn-call:hover{
-  transform:translateY(-5px);
-  box-shadow:0 18px 40px rgba(212,175,55,.35);
-}
-
-@media(max-width:768px){
-  .btn-call{
-    text-align:center;
-  }
+  transform:translateY(-3px);
+  box-shadow:0 18px 40px rgba(212,175,55,.45);
 }
