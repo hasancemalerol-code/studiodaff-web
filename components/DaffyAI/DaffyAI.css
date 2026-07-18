@@ -12,7 +12,6 @@
   background: rgba(212, 175, 55, 0.25);
   border-radius: 50%;
   filter: blur(70px);
-  opacity:.75;
   top: -40px;
   left: 50%;
   transform: translateX(-50%);
@@ -31,8 +30,11 @@
 }
 
 .ai-card {
- border:1px solid rgba(212,175,55,.28);
-position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  position: relative;
   z-index: 2;
   background: rgba(18, 18, 18, 0.92);
   backdrop-filter: blur(16px);
@@ -40,11 +42,10 @@ position: relative;
   border-radius: 32px;
   padding: 78px 24px 24px;
   box-shadow:
-   0 25px 70px rgba(0,0,0,.45),
-0 0 0 1px rgba(212,175,55,.08),
-inset 0 1px 0 rgba(255,255,255,.05);
+    0 25px 70px rgba(0,0,0,.45),
+    0 0 0 1px rgba(212,175,55,.08),
+    inset 0 1px 0 rgba(255,255,255,.05);
 }
-
 .ai-badge{
   display:inline-flex;
   align-items:center;
@@ -116,7 +117,8 @@ backdrop-filter:blur(12px);
 }
 
 .quick-grid button{
-  border:none;
+  width:100%;
+border:none;
   border-radius:16px;
   padding:15px;
   background:#202020;
@@ -148,7 +150,8 @@ backdrop-filter:blur(12px);
 }
 
 .chat-input input{
-  flex:1;
+ min-width: 0;
+    flex:1;
   background:#202020;
   border:1px solid rgba(255,255,255,.08);
   color:#fff;
