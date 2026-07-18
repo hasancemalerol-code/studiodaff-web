@@ -68,7 +68,7 @@ export default function Footer() {
 
           <p>📍 İstanbul, Türkiye</p>
 
-          <p>📞 +90 555 555 55 55</p>
+          <p>📞 +90 530 734 74 62</p>
 
           <p>✉️ info@studiodaff.com</p>
 
