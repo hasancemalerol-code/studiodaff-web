@@ -23,9 +23,9 @@ export default function Home() {
 
       <Navbar />
 
-      <Reveal direction="up">
-        <Hero />
-      </Reveal>
+      
+       <Hero />
+      
 
       <Reveal direction="left" delay={0.1}>
         <About />

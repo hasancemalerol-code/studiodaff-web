@@ -6,11 +6,9 @@ import { motion } from "framer-motion";
 export default function Hero() {
   return (
     <section className="hero" id="hero">
-
       <div className="hero-container">
 
         {/* SOL TARAF */}
-
         <motion.div
           className="hero-left"
           initial={{ opacity: 0, x: -40 }}
@@ -18,7 +16,6 @@ export default function Hero() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-
           <p className="hero-top">
             PREMIUM PET GROOMING & SPA
           </p>
@@ -32,18 +29,16 @@ export default function Hero() {
           <p className="hero-text">
             StudioDaff olarak dostlarınıza yalnızca bakım değil,
             güven, hijyen ve konfor sunuyoruz.
-            Yapay zekâ destekli danışmanımız Daffy ile bakım
-            önerileri alabilir, hizmetlerimizi keşfedebilir ve
-            saniyeler içinde randevu oluşturabilirsiniz.
+            Profesyonel ekibimiz ile köpek ve kedi dostlarınıza
+            premium bakım deneyimi yaşatıyoruz.
           </p>
 
           <div className="hero-buttons">
-
             <a
               href="https://wa.me/905307347462?text=Merhaba%20StudioDaff,%20randevu%20almak%20istiyorum."
+              className="btn-gold"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-gold"
             >
               Randevu Al
             </a>
@@ -61,7 +56,6 @@ export default function Hero() {
             >
               Hizmetlerimiz
             </a>
-
           </div>
 
           <div className="hero-info">
@@ -78,7 +72,7 @@ export default function Hero() {
 
             <div className="info-card">
               <h2>★ 4.9</h2>
-              <span>Google Değerlendirmesi</span>
+              <span>Google Yorumu</span>
             </div>
 
           </div>
@@ -89,17 +83,20 @@ export default function Hero() {
 
         <motion.div
           className="hero-right"
-          initial={{ opacity: 0, x: 60 }}
+          initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.9 }}
         >
 
+          <img
+            src="/images/hero.jpg"
+            alt="StudioDaff Premium Pet Grooming"
+          />
 
         </motion.div>
 
       </div>
-
     </section>
   );
 }
