@@ -1,11 +1,23 @@
+"use client";
+
 import "./Hero.css";
+import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
     <section className="hero" id="hero">
+
       <div className="hero-container">
 
-        <div className="hero-left">
+        {/* SOL TARAF */}
+
+        <motion.div
+          className="hero-left"
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
 
           <p className="hero-top">
             PREMIUM PET GROOMING & SPA
@@ -20,8 +32,9 @@ export default function Hero() {
           <p className="hero-text">
             StudioDaff olarak dostlarınıza yalnızca bakım değil,
             güven, hijyen ve konfor sunuyoruz.
-            Profesyonel pet grooming hizmetimiz ile
-            her pati mutlu ayrılır.
+            Yapay zekâ destekli danışmanımız Daffy ile bakım
+            önerileri alabilir, hizmetlerimizi keşfedebilir ve
+            saniyeler içinde randevu oluşturabilirsiniz.
           </p>
 
           <div className="hero-buttons">
@@ -65,23 +78,28 @@ export default function Hero() {
 
             <div className="info-card">
               <h2>★ 4.9</h2>
-              <span>Google Puanı</span>
+              <span>Google Değerlendirmesi</span>
             </div>
 
           </div>
 
-        </div>
+        </motion.div>
 
-        <div className="hero-right">
+        {/* SAĞ TARAF */}
 
-          <img
-            src="/images/hero.jpg"
-            alt="Studio Daff"
-          />
+        <motion.div
+          className="hero-right"
+          initial={{ opacity: 0, x: 60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+        >
 
-        </div>
+
+        </motion.div>
 
       </div>
+
     </section>
   );
 }
