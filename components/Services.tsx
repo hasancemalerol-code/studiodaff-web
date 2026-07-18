@@ -23,7 +23,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section className="services" id="hizmetler">
+    <section className="services" id="services">
 
       <div className="services-title">
 
