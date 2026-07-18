@@ -50,136 +50,81 @@ const reviews = [
 
 export default function Testimonials() {
   return (
-    <section className="testimonials">
+    <section className="testimonials" id="testimonials">
 
       <motion.div
         className="testimonial-title"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: .7 }}
+        transition={{ duration: 0.7 }}
       >
-
         <span>MÜŞTERİ YORUMLARI</span>
 
         <h2>
-
           Bizi Tercih Edenler
-
           <br />
-
           Ne Diyor?
-
         </h2>
 
         <p>
-
           Binlerce mutlu dostumuz ve onların
           değerli sahiplerinden gelen yorumlar.
-
         </p>
-
       </motion.div>
 
       <div className="testimonial-grid">
-
         {reviews.map((review) => (
-
           <motion.div
-
             key={review.id}
-
             className="testimonial-card"
-
             initial={{ opacity: 0, y: 40 }}
-
             whileInView={{ opacity: 1, y: 0 }}
-
             viewport={{ once: true }}
-
-            transition={{
-              duration: .6,
-            }}
-
+            transition={{ duration: 0.6 }}
           >
-
             <img
               src={review.image}
               alt={review.name}
             />
 
             <div className="stars">
-
               ★★★★★
-
             </div>
 
-            <h3>
-
-              {review.name}
-
-            </h3>
+            <h3>{review.name}</h3>
 
             <p>
-
               "{review.comment}"
-
             </p>
-                        <div className="google-badge">
 
+            <div className="google-badge">
               <span className="google-icon">G</span>
-
               <span>Google Review</span>
-
             </div>
 
           </motion.div>
-
         ))}
-
       </div>
 
       <motion.div
-
         className="testimonial-footer"
-
         initial={{ opacity: 0 }}
-
         whileInView={{ opacity: 1 }}
-
         viewport={{ once: true }}
-
-        transition={{ delay: .3 }}
-
+        transition={{ delay: 0.3 }}
       >
-
         <div className="rating">
-
-          <span className="rating-score">
-
-            4.9
-
-          </span>
-
-          <span className="rating-stars">
-
-            ★★★★★
-
-          </span>
-
+          <span className="rating-score">4.9</span>
+          <span className="rating-stars">★★★★★</span>
         </div>
 
         <p>
-
           5000+ mutlu pati ve yüzlerce
           olumlu müşteri yorumu.
-
         </p>
-
       </motion.div>
 
     </section>
-
   );
-
 }
