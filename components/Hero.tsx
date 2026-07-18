@@ -27,7 +27,9 @@ export default function Hero() {
           <div className="hero-buttons">
 
             <a
-              href="#"
+              href="https://wa.me/905307347462?text=Merhaba%20StudioDaff,%20randevu%20almak%20istiyorum."
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-gold"
             >
               Randevu Al

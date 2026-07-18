@@ -13,17 +13,11 @@ import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
 import ScrollProgress from "../components/ScrollProgress";
 import BackToTop from "../components/BackToTop";
-import Cursor from "../components/Cursor";
-import MouseGlow from "../components/MouseGlow";
 import WhatsAppButton from "../components/WhatsAppButton";
 
 export default function Home() {
   return (
     <main>
-
-      <MouseGlow />
-
-      <Cursor />
 
       <ScrollProgress />
 
