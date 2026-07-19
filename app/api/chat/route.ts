@@ -3,6 +3,8 @@ export const runtime = "nodejs";
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
 
+console.log("OPENAI_API_KEY =", process.env.OPENAI_API_KEY);
+
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
