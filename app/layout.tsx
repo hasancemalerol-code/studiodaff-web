@@ -1,3 +1,4 @@
+import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
@@ -19,9 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
-      <body className={poppins.className}>
-        {children}
-      </body>
-    </html>
+  <body className={poppins.className}>
+  {children}
+</body>
+
+  <GoogleTagManager gtmId="GTM-T7664RC4" />
+</html>
   );
 }
