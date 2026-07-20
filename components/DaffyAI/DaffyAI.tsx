@@ -12,6 +12,11 @@ interface Message {
   text: string;
 }
 
+interface ChatHistoryItem {
+  role: "user" | "assistant";
+  content: string;
+}
+
 const BREEDS: Record<string, string> = {
   pomeranian:
     "✨ Pomeranian yoğun tarama gerektirir. Ortalama 3-4 haftada bir profesyonel bakım öneriyoruz.",
@@ -118,19 +123,35 @@ const handleSend = async () => {
 
   const userText = input.trim();
 
-  addMessage("user", userText);
-  setInput("");
-  setTyping(true);
+const userMessage: Message = {
+  id: Date.now(),
+  sender: "user",
+  text: userText,
+};
 
-  try {
+const updatedMessages = [...messages, userMessage];
+
+setMessages(updatedMessages);
+setInput("");
+setTyping(true);
+
+const history: ChatHistoryItem[] = updatedMessages
+  .slice(-10)
+  .map((msg) => ({
+    role: msg.sender === "user" ? "user" : "assistant",
+    content: msg.text,
+  }));
+
+try {
     const res = await fetch("/api/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        message: userText,
-      }),
+     body: JSON.stringify({
+  message: userText,
+  history,
+}),
     });
 
     const data = await res.json();
