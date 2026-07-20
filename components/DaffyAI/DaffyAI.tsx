@@ -126,6 +126,11 @@ const handleSend = async () => {
 
   const userText = input.trim();
 
+let image: string | null = null;
+
+if (selectedImage) {
+  image = await fileToBase64(selectedImage);
+}
 addMessage("user", userText);
 setInput("");
 setTyping(true);
@@ -143,9 +148,10 @@ try {
       headers: {
         "Content-Type": "application/json",
       },
-     body: JSON.stringify({
+    body: JSON.stringify({
   message: userText,
   history,
+  image,
 }),
     });
 
@@ -157,7 +163,11 @@ try {
       "daffy",
       data.reply || "Şu anda cevap veremiyorum."
     );
-  } catch (error) {
+
+  
+  removeImage();
+ 
+} catch (error) {
     setTyping(false);
 
     addMessage(
@@ -192,7 +202,23 @@ const removeImage = () => {
   setSelectedImage(null);
   setPreviewUrl("");
 };
-  const quickAction = (type: string) => {
+const fileToBase64 = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      resolve(reader.result as string);
+    };
+
+    reader.onerror = (error) => {
+      reject(error);
+    };
+  });
+};
+  
+const quickAction = (type: string) => {
     switch (type) {
       case "dog":
         addMessage("daffy", "🐶 Köpeğinizin ırkı nedir?");

@@ -58,8 +58,7 @@ ${STUDIODAFF_KNOWLEDGE}
 
 export async function POST(req: Request) {
   try {
-   const { message, history = [] } = await req.json();
-
+  const { message, history = [], image } = await req.json();
     if (!message) {
       return NextResponse.json(
         { error: "Message is required." },
@@ -77,22 +76,53 @@ export async function POST(req: Request) {
 
   ...history,
 
-  {
-    role: "user",
-    content: message,
-  },
+ {
+  role: "user",
+  content: image
+    ? [
+        {
+          type: "input_text",
+          text: message,
+        },
+        {
+          type: "input_image",
+          image_url: image,
+        },
+      ]
+    : [
+        {
+          type: "input_text",
+          text: message,
+        },
+      ],
+},
 ],
     });
 
     return NextResponse.json({
       reply: completion.output_text,
     });
-  } catch (error) {
-    console.error(error);
+ } catch (error: any) {
+  console.error("========== OPENAI ERROR ==========");
+  console.error(error);
 
-    return NextResponse.json(
-      { error: "OpenAI request failed." },
-      { status: 500 }
-    );
+  if (error?.message) {
+    console.error("Message:", error.message);
   }
+
+  if (error?.status) {
+    console.error("Status:", error.status);
+  }
+
+  if (error?.response?.data) {
+    console.error(error.response.data);
+  }
+
+  return NextResponse.json(
+    {
+      error: error?.message || "OpenAI request failed.",
+    },
+    { status: 500 }
+  );
+}
 }
