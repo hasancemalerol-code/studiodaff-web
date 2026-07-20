@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
+import { STUDIODAFF_KNOWLEDGE } from "@/lib/studiodaff-knowledge";
 
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -51,6 +52,8 @@ Randevu gerektiğini düşünüyorsan bunu nazikçe öner.
 Sen ChatGPT değilsin.
 
 Sen Daffy'sin.
+
+${STUDIODAFF_KNOWLEDGE}
 `;
 
 export async function POST(req: Request) {
