@@ -55,7 +55,10 @@ export default function DaffyAI() {
 
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
+  
+const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
+const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const chatRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -123,19 +126,11 @@ const handleSend = async () => {
 
   const userText = input.trim();
 
-const userMessage: Message = {
-  id: Date.now(),
-  sender: "user",
-  text: userText,
-};
-
-const updatedMessages = [...messages, userMessage];
-
-setMessages(updatedMessages);
+addMessage("user", userText);
 setInput("");
 setTyping(true);
 
-const history: ChatHistoryItem[] = updatedMessages
+const history: ChatHistoryItem[] = messages
   .slice(-10)
   .map((msg) => ({
     role: msg.sender === "user" ? "user" : "assistant",
@@ -173,7 +168,30 @@ try {
     console.error(error);
   }
 };
+const handleImageChange = (
+  e: React.ChangeEvent<HTMLInputElement>
+) => {
+  const file = e.target.files?.[0];
 
+  if (!file) return;
+
+  setSelectedImage(file);
+
+  if (previewUrl) {
+    URL.revokeObjectURL(previewUrl);
+  }
+
+  setPreviewUrl(URL.createObjectURL(file));
+};
+
+const removeImage = () => {
+  if (previewUrl) {
+    URL.revokeObjectURL(previewUrl);
+  }
+
+  setSelectedImage(null);
+  setPreviewUrl("");
+};
   const quickAction = (type: string) => {
     switch (type) {
       case "dog":
@@ -278,7 +296,34 @@ try {
           </button>
         </div>
                 <div className="chat-input">
+{previewUrl && (
+  <div className="image-preview">
+    <img
+      src={previewUrl}
+      alt="Seçilen Fotoğraf"
+      className="preview-image"
+    />
 
+    <button
+      type="button"
+      className="remove-image"
+      onClick={removeImage}
+    >
+      ✕
+    </button>
+  </div>
+)}
+
+<label className="upload-button">
+  📷
+
+  <input
+    type="file"
+    accept="image/*"
+    onChange={handleImageChange}
+    hidden
+  />
+</label>
           <input
             type="text"
             placeholder="Dostunuz hakkında yazın..."
