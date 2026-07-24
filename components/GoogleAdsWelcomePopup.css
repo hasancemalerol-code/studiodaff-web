@@ -1,0 +1,164 @@
+.sd-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+  padding: 20px;
+  animation: fadeIn 0.35s ease;
+}
+
+.sd-popup {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  background: rgba(20, 20, 20, 0.88);
+  backdrop-filter: blur(18px);
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.15);
+  box-shadow:
+    0 15px 60px rgba(0,0,0,.45),
+    0 0 40px rgba(0,255,180,.15);
+  padding: 38px 30px;
+  text-align: center;
+  color: white;
+  animation: popupIn .35s ease;
+}
+
+.sd-close {
+  position: absolute;
+  right: 18px;
+  top: 16px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.sd-close:hover {
+  transform: scale(1.15);
+  color: #00d084;
+}
+
+.sd-logo {
+  font-size: 60px;
+  margin-bottom: 14px;
+}
+
+.sd-heading {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.sd-title {
+  margin-top: 16px;
+  font-size: 18px;
+  color: #f3f3f3;
+  line-height: 1.5;
+}
+
+.sd-desc {
+  margin-top: 12px;
+  font-size: 15px;
+  color: #cccccc;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.sd-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 14px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: .25s;
+  font-size: 16px;
+}
+
+.sd-whatsapp {
+  background: #25D366;
+  color: white;
+}
+
+.sd-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37,211,102,.45);
+}
+
+.sd-phone {
+  background: #0066ff;
+  color: white;
+}
+
+.sd-phone:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,102,255,.4);
+}
+
+.sd-link {
+  margin-top: 10px;
+  border: none;
+  background: transparent;
+  color: #9ad7ff;
+  cursor: pointer;
+  font-size: 15px;
+  transition: .2s;
+}
+
+.sd-link:hover {
+  color: white;
+}
+
+@keyframes popupIn {
+  from {
+    opacity: 0;
+    transform: scale(.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width:600px) {
+
+  .sd-popup {
+    padding: 30px 22px;
+    border-radius: 20px;
+  }
+
+  .sd-heading {
+    font-size: 24px;
+  }
+
+  .sd-title {
+    font-size: 16px;
+  }
+
+  .sd-desc {
+    font-size: 14px;
+  }
+
+  .sd-btn {
+    font-size: 15px;
+    padding: 15px;
+  }
+}

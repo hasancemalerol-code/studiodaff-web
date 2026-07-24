@@ -2,6 +2,7 @@ import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import GoogleAdsWelcomePopup from "@/components/GoogleAdsWelcomePopup";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,11 +21,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
-  <body className={poppins.className}>
-  {children}
-</body>
+      <body className={poppins.className}>
+        <GoogleAdsWelcomePopup />
 
-  <GoogleTagManager gtmId="GTM-T7664RC4" />
-</html>
+        {children}
+      </body>
+
+      <GoogleTagManager gtmId="GTM-T7664RC4" />
+    </html>
   );
 }
