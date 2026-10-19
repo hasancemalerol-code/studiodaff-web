@@ -2,6 +2,7 @@
 
 import DaffyAI from "./DaffyAI/DaffyAI";
 import "./Hero.css";
+import { trackContactClick } from "@/lib/tracking";
 import { motion } from "framer-motion";
 
 export default function Hero() {
@@ -38,6 +39,7 @@ export default function Hero() {
             <a
               href="https://wa.me/905307347462?text=Merhaba%20StudioDaff,%20randevu%20almak%20istiyorum."
               className="btn-gold"
+              onClick={() => trackContactClick("whatsapp", "hero")}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -47,6 +49,7 @@ export default function Hero() {
             <a
               href="tel:+905307347462"
               className="btn-call"
+              onClick={() => trackContactClick("phone", "hero")}
             >
               📞 Ara
             </a>
