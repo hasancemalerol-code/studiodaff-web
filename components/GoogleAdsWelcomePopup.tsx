@@ -2,21 +2,7 @@
 
 import { useEffect, useState } from "react";
 import "./GoogleAdsWelcomePopup.css";
-
-type TrackingEvent = "whatsapp_click" | "phone_click";
-
-function trackContactClick(event: TrackingEvent) {
-  const dataLayer = (window as Window & {
-    dataLayer?: Array<Record<string, string>>;
-  }).dataLayer;
-
-  // GTM consumes custom events; tags and conversions are configured separately.
-  dataLayer?.push({
-    event: "studio_contact_click",
-    contact_method: event === "whatsapp_click" ? "whatsapp" : "phone",
-    contact_placement: "ads_welcome_popup",
-  });
-}
+import { trackContactClick } from "@/lib/tracking";
 
 function isGoogleAdVisit(search: string) {
   const params = new URLSearchParams(search);
@@ -81,14 +67,14 @@ export default function GoogleAdsWelcomePopup() {
           target="_blank"
           rel="noopener noreferrer"
           className="sd-btn sd-whatsapp"
-          onClick={() => trackContactClick("whatsapp_click")}
+          onClick={() => trackContactClick("whatsapp", "ads_welcome_popup")}
         >
           WhatsApp&apos;tan Randevu Al
         </a>
         <a
           href="tel:+905307347462"
           className="sd-btn sd-phone"
-          onClick={() => trackContactClick("phone_click")}
+          onClick={() => trackContactClick("phone", "ads_welcome_popup")}
         >
           📞 Hemen Ara
         </a>
