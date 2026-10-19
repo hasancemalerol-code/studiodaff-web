@@ -2,10 +2,6 @@ import OpenAI from "openai";
 import { NextResponse } from "next/server";
 import { STUDIODAFF_KNOWLEDGE } from "@/lib/studiodaff-knowledge";
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 const SYSTEM_PROMPT = `
 Sen Daffy'sin.
 
@@ -66,6 +62,12 @@ export async function POST(req: Request) {
       );
     }
 
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      console.error("OPENAI_API_KEY is not configured");
+      return NextResponse.json({ error: "Chat service unavailable." }, { status: 503 });
+    }
+    const client = new OpenAI({ apiKey });
     const completion = await client.responses.create({
       model: "gpt-5.5",
       input: [
