@@ -2,14 +2,7 @@
 
 import type { FormEvent } from "react";
 import "./Contact.css";
-
-function trackContactForm() {
-  (window as Window & { dataLayer?: Array<Record<string, string>> }).dataLayer?.push({
-    event: "studio_contact_click",
-    contact_method: "whatsapp",
-    contact_placement: "appointment_form",
-  });
-}
+import { trackContactClick } from "@/lib/tracking";
 
 function submitAppointment(event: FormEvent<HTMLFormElement>) {
   event.preventDefault();
@@ -27,7 +20,7 @@ function submitAppointment(event: FormEvent<HTMLFormElement>) {
   ].join("\n");
   // WhatsApp only prepares the message; the visitor confirms sending it.
   window.open(`https://wa.me/905307347462?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
-  trackContactForm();
+  trackContactClick("whatsapp", "appointment_form");
 }
 
 
@@ -90,7 +83,7 @@ export default function Contact() {
 
               <h3>📞 Telefon</h3>
 
-              <a href="tel:+905307347462">
+              <a href="tel:+905307347462" onClick={() => trackContactClick("phone", "contact_info")}>
                 +90 530 734 74 62
               </a>
 
