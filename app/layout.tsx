@@ -10,8 +10,16 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "StudioDaff",
-  description: "Premium Pet Grooming & Spa",
+  title: "StudioDaff | Etiler Pet Kuaför, Köpek ve Kedi Bakımı",
+  description: "StudioDaff Etiler’de profesyonel köpek ve kedi bakım hizmetleri: pet grooming, banyo, tırnak ve kulak bakımı. Bilgi ve randevu için bize ulaşın.",
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    siteName: "StudioDaff",
+    title: "StudioDaff | Etiler Pet Grooming",
+    description: "Etiler’de profesyonel köpek ve kedi bakımı.",
+  },
 };
 
 export default function RootLayout({
