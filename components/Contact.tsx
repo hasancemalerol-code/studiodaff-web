@@ -24,7 +24,7 @@ function submitAppointment(event: FormEvent<HTMLFormElement>) {
     `Evcil Dostum: ${get("pet")}`,
     `Hizmet: ${get("service")}`,
     `Not: ${get("message") || "Yok"}`,
-  ].join("\\n");
+  ].join("\n");
   // WhatsApp only prepares the message; the visitor confirms sending it.
   window.open(`https://wa.me/905307347462?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   trackContactForm();
