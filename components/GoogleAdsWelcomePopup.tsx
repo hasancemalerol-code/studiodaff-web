@@ -23,6 +23,7 @@ export default function GoogleAdsWelcomePopup() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
     try {
       if (!isGoogleAdVisit(window.location.search)) return;
       if (window.sessionStorage.getItem("sd_ads_popup_dismissed") === "1") {
@@ -33,6 +34,8 @@ export default function GoogleAdsWelcomePopup() {
       // Storage may be unavailable; ad-source checking still works.
       if (isGoogleAdVisit(window.location.search)) setOpen(true);
     }
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   const closePopup = () => {
