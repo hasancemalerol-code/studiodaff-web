@@ -59,8 +59,8 @@ jobs:
       - name: Install proposed upgrades (no repository writes)
         run: |
           npm ci
-          npm install --save-exact next@16.4.2 @next/third-parties@16.4.2
-          npm audit fix --omit=dev || true
+          npm install --save-exact next@16.4.2 @next/third-parties@16.4.2 eslint-config-next@16.4.2
+          npm audit fix || true
       - name: Audit production packages after upgrade
         run: npm audit --omit=dev --audit-level=high
       - name: TypeScript
