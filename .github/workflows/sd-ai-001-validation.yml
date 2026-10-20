@@ -46,6 +46,9 @@ jobs:
         run: npm audit --omit=dev --audit-level=high
 
   security-upgrade-probe:
+    if: github.event_name == 'push'
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -58,7 +61,7 @@ jobs:
         run: |
           npm ci
           npm install --save-exact next@16.4.2 @next/third-parties@16.4.2
-          npm audit fix
+          npm audit fix --omit=dev || true
       - name: Audit production packages after upgrade
         run: npm audit --omit=dev --audit-level=high
       - name: TypeScript
@@ -70,3 +73,13 @@ jobs:
           NEXT_TELEMETRY_DISABLED: '1'
           NEXT_PUBLIC_SITE_URL: https://studiodaff.com
         run: npm run build
+      - name: Commit verified lockfile changes
+        if: github.event_name == 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json
+          if ! git diff --cached --quiet; then
+            git commit -m "fix(security): upgrade Next.js and audited production dependencies"
+            git push origin HEAD:feature/sd-ai-001-conversion-foundation
+          fi
