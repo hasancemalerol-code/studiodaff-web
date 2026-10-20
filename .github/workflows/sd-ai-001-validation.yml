@@ -44,3 +44,29 @@ jobs:
         run: npm ci
       - name: Audit production dependencies (high and critical)
         run: npm audit --omit=dev --audit-level=high
+
+  security-upgrade-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install proposed upgrades (no repository writes)
+        run: |
+          npm ci
+          npm install --save-exact next@16.4.2 @next/third-parties@16.4.2
+          npm audit fix
+      - name: Audit production packages after upgrade
+        run: npm audit --omit=dev --audit-level=high
+      - name: TypeScript
+        run: npx tsc --noEmit
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+          NEXT_PUBLIC_SITE_URL: https://studiodaff.com
+        run: npm run build
