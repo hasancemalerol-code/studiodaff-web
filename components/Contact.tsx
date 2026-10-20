@@ -1,6 +1,28 @@
 "use client";
 
+import type { FormEvent } from "react";
 import "./Contact.css";
+import { trackContactClick } from "@/lib/tracking";
+
+function submitAppointment(event: FormEvent<HTMLFormElement>) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  if (!form.reportValidity()) return;
+  const data = new FormData(form);
+  const get = (name: string) => String(data.get(name) ?? "").trim();
+  const message = [
+    "Merhaba StudioDaff, randevu talep etmek istiyorum.",
+    `Ad Soyad: ${get("name")}`,
+    `Telefon: ${get("phone")}`,
+    `Evcil Dostum: ${get("pet")}`,
+    `Hizmet: ${get("service")}`,
+    `Not: ${get("message") || "Yok"}`,
+  ].join("\n");
+  // WhatsApp only prepares the message; the visitor confirms sending it.
+  window.open(`https://wa.me/905307347462?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+  trackContactClick("whatsapp", "appointment_form");
+}
+
 
 export default function Contact() {
   return (
@@ -61,7 +83,7 @@ export default function Contact() {
 
               <h3>📞 Telefon</h3>
 
-              <a href="tel:+905307347462">
+              <a href="tel:+905307347462" onClick={() => trackContactClick("phone", "contact_info")}>
                 +90 530 734 74 62
               </a>
 
@@ -95,24 +117,39 @@ export default function Contact() {
 
         <div className="contact-right">
 
-          <form className="contact-form">
+          <form className="contact-form" onSubmit={submitAppointment}>
 
             <input
               type="text"
+              name="name"
+              autoComplete="name"
+              maxLength={100}
+              required
+              aria-label="Ad Soyad"
               placeholder="Ad Soyad"
             />
 
             <input
               type="tel"
+              name="phone"
+              autoComplete="tel"
+              minLength={10}
+              maxLength={20}
+              required
+              aria-label="Telefon"
               placeholder="Telefon"
             />
 
             <input
               type="text"
+              name="pet"
+              maxLength={100}
+              required
+              aria-label="Evcil Dostunuz"
               placeholder="Evcil Dostunuz"
             />
 
-            <select defaultValue="">
+            <select name="service" defaultValue="" required aria-label="Hizmet Seçiniz">
               <option value="" disabled>
                 Hizmet Seçiniz
               </option>
@@ -127,12 +164,18 @@ export default function Contact() {
 
             <textarea
               rows={6}
+              name="message"
+              maxLength={1200}
+              aria-label="Mesajınız"
               placeholder="Mesajınız"
             />
 
             <button type="submit">
-              Randevu Oluştur
+              WhatsApp ile Randevu Talebi Gönder
             </button>
+            <p style={{ color: "#d8d8d8", fontSize: "13px", lineHeight: 1.5 }} role="note">
+              Butona bastığınızda WhatsApp açılır. Talebiniz, mesajı WhatsApp üzerinden gönderdiğinizde iletilir; randevunuz henüz kesinleşmez.
+            </p>
 
           </form>
 

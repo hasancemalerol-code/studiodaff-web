@@ -2,10 +2,6 @@ import OpenAI from "openai";
 import { NextResponse } from "next/server";
 import { STUDIODAFF_KNOWLEDGE } from "@/lib/studiodaff-knowledge";
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 const SYSTEM_PROMPT = `
 Sen Daffy'sin.
 
@@ -66,6 +62,12 @@ export async function POST(req: Request) {
       );
     }
 
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      console.error("OPENAI_API_KEY is not configured");
+      return NextResponse.json({ error: "Chat service unavailable." }, { status: 503 });
+    }
+    const client = new OpenAI({ apiKey });
     const completion = await client.responses.create({
       model: "gpt-5.5",
       input: [
@@ -102,25 +104,29 @@ export async function POST(req: Request) {
     return NextResponse.json({
       reply: completion.output_text,
     });
- } catch (error: any) {
+ } catch (error: unknown) {
+  const details = error && typeof error === "object" ? error as {
+    message?: string; status?: number; response?: { data?: unknown }
+  } : {};
+
   console.error("========== OPENAI ERROR ==========");
   console.error(error);
 
-  if (error?.message) {
-    console.error("Message:", error.message);
+  if (details.message) {
+    console.error("Message:", details.message);
   }
 
-  if (error?.status) {
-    console.error("Status:", error.status);
+  if (details.status) {
+    console.error("Status:", details.status);
   }
 
-  if (error?.response?.data) {
-    console.error(error.response.data);
+  if (details.response?.data) {
+    console.error(details.response?.data);
   }
 
   return NextResponse.json(
     {
-      error: error?.message || "OpenAI request failed.",
+      error: details.message || "OpenAI request failed.",
     },
     { status: 500 }
   );

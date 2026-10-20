@@ -95,7 +95,7 @@ export default function Testimonials() {
             <h3>{review.name}</h3>
 
             <p>
-              "{review.comment}"
+              &ldquo;{review.comment}&rdquo;
             </p>
 
             <div className="google-badge">

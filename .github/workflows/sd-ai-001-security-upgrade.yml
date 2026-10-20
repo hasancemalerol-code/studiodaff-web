@@ -1,0 +1,49 @@
+name: SD-AI-001 Security Upgrade
+
+on:
+  push:
+    branches:
+      - feature/sd-ai-001-conversion-foundation
+    paths:
+      - .github/workflows/sd-ai-001-security-upgrade.yml
+
+permissions:
+  contents: write
+
+jobs:
+  upgrade-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Upgrade locked dependencies without force
+        run: |
+          npm ci
+          npm install --save-exact next@16.4.2 @next/third-parties@16.4.2
+          npm audit fix
+      - name: Security gate
+        run: npm audit --omit=dev --audit-level=high
+      - name: TypeScript
+        run: npx tsc --noEmit
+      - name: Lint
+        run: npm run lint
+      - name: Production build
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+          NEXT_PUBLIC_SITE_URL: https://studiodaff.com
+        run: npm run build
+      - name: Commit verified dependency updates to feature branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json
+          if ! git diff --cached --quiet; then
+            git commit -m "fix(security): upgrade verified Next.js and dependencies"
+            git push origin HEAD:feature/sd-ai-001-conversion-foundation
+          fi

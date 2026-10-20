@@ -75,7 +75,7 @@ export default function Gallery() {
         </h2>
 
         <p>
-          Studio Daff'ta sevgiyle ağırladığımız
+          Studio Daff&apos;ta sevgiyle ağırladığımız
           dostlarımızın en güzel anlarından
           seçilmiş kareler.
         </p>
